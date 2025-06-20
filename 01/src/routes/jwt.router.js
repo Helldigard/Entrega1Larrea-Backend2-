@@ -1,14 +1,23 @@
 import { Router } from 'express';
-import userModel from '../services/db/models/user.model.js';
+import User from '../models/User.js';
 import {isValidPassword} from '../utils.js';
 import passport from 'passport';
 import { generateJWToken } from '../utils.js';
 
 import bcrypt from 'bcrypt';
-import User from '../models/User.js';
+
+import UserDTO from "../dto/user.dto.js";
 
 
 const router = Router();
+
+router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
+    const userDTO = new UserDTO(req.user);
+    res.json({
+        status: "success",
+        payload: userDTO
+    });
+});
 
 /////////////////////
 router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {

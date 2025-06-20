@@ -1,5 +1,7 @@
 import { Router } from 'express';
 import passport from 'passport';
+import User from '../models/User.js';
+
 
 const router = Router();
 

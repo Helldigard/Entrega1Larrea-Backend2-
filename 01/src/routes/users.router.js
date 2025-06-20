@@ -1,14 +1,11 @@
 import { Router } from "express";
-import userModel from '../services/db/models/user.model.js';
+import User from '../models/User.js';
 import {authToken} from '../utils.js';
-import User from '../../models/User.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 const router = Router();
-
-
-const JWT_SECRET = "tu_secreto_super_seguro";
+const JWT_SECRET = process.env.JWT_SECRET;
 
 router.post("/register", async (req, res) => {
     const { first_name, last_name, email, age, password } = req.body;

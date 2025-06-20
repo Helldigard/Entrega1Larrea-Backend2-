@@ -8,11 +8,14 @@ import cookieParser from 'cookie-parser';
 import passport from 'passport';
 import initializePassport from './config/passport.config.js';
 
+
 //Routers
 import viewsRouter from './routes/views.router.js';
-import usersViewRouter from './routes/users.views.router.js';
+import usersViewRouter from './routes/users.view.router.js'; 
 import jwtRouter from './routes/jwt.router.js'
 import usersRouter from './routes/users.router.js';
+import passwordRouter from './routes/password.router.js';
+import User from './models/User.js'
 
 
 import petsRouter from './routes/pets.router.js';
@@ -49,6 +52,7 @@ app.use("/users", usersViewRouter);
 app.use("/api/jwt", jwtRouter);
 app.use('/api/users', usersRouter);
 app.use("/api/pets", petsRouter);
+app.use('/api/password', passwordRouter);
 
 
 const usersExtendRouter = new UsersExtendRouter();
@@ -73,10 +77,5 @@ const connectMongoDB = async () => {
         process.exit();
     }
 };
-// MongoDB OwnSrever 
-/*
-mongoose.connect("mongodb+srv://larrea14:JOBh57jGTU4hNrRc@cluster0.vr4runj.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
-.then(() => {console.log("Conectado a la base de datos")})
-.catch(error => console.error("Error en la conexión", error))*/
 
 connectMongoDB();

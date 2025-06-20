@@ -1,5 +1,5 @@
 import passport from 'passport';
-import userModel from '../services/db/models/user.model.js';
+import User from '../models/User.js';
 import jwtStrategy from 'passport-jwt';
 import { PRIVATE_KEY } from '../utils.js';
 import { Router } from 'express';
