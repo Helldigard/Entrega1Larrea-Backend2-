@@ -7,6 +7,10 @@ import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
 import passport from 'passport';
 import initializePassport from './config/passport.config.js';
+import productsRouter from './routes/products.router.js';
+
+
+
 
 
 //Routers
@@ -16,6 +20,8 @@ import jwtRouter from './routes/jwt.router.js'
 import usersRouter from './routes/users.router.js';
 import passwordRouter from './routes/password.router.js';
 import User from './models/User.js'
+import cartsRouter from './routes/carts.router.js';
+
 
 
 import petsRouter from './routes/pets.router.js';
@@ -53,6 +59,10 @@ app.use("/api/jwt", jwtRouter);
 app.use('/api/users', usersRouter);
 app.use("/api/pets", petsRouter);
 app.use('/api/password', passwordRouter);
+app.use('/api/products', productsRouter);
+app.use('/api/carts', cartsRouter);
+app.use('./models/User.js', usersExtendRouter);
+
 
 
 const usersExtendRouter = new UsersExtendRouter();
