@@ -2,7 +2,7 @@ import { Router } from "express";
 import passport from "passport";
 import {authToken} from '../utils.js';
 import { passportCall, authorization } from "../utils.js";
-import User from '../models/User.js';
+import User from '../services/db/daos/models/User.js';
 
 
 const router = Router();

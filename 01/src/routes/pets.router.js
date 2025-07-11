@@ -1,6 +1,6 @@
 import { Router } from "express";
 import PetsService from '../services/db/pets.service.js';
-import User from '../models/User.js';
+import User from '../services/db/daos/models/User.js';
 
 
 const router = Router();

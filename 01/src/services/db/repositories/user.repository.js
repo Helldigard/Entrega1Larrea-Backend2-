@@ -1,21 +1,23 @@
-import express from "express";
-import UserRepository from "../services/db/repositories/user.repository.js";
+import userModel from '../db/models/user.model.js';
 
-const router = express.Router();
-const userRepo = new UserRepository();
-
-router.post("/register", async (req, res) => {
-    try {
-    const result = await userRepo.register(req.body);
-    res.status(201).send({ message: "Usuario creado", user: result });
-    } catch (err) {
-    res.status(400).send({ error: err.message });
+class UserRepository {
+    async findByEmail(email) {
+        return await userModel.findOne({ email });
     }
-});
 
-router.post("/login", async (req, res) => {
-    const { email, password } = req.body;
-    const user = await userRepo.login(email, password);
-    if (!user) return res.status(401).send({ error: "Credenciales inválidas" });
-    res.send({ message: "Login OK", user });
-});
+    async create(userData) {
+        const newUser = new userModel(userData);
+        return await newUser.save();
+    }
+
+    async findById(id) {
+        return await userModel.findById(id);
+    }
+
+    async updatePassword(id, newPassword) {
+        return await userModel.findByIdAndUpdate(id, { password: newPassword });
+    }
+}
+
+export default new UserRepository();
+

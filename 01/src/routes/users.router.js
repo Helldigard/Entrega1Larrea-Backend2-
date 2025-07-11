@@ -1,58 +1,10 @@
 import { Router } from "express";
-import User from '../models/User.js';
-import {authToken} from '../utils.js';
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
+import { registerUser, loginUser } from "../controllers/user.controller.js";
 
 const router = Router();
-const JWT_SECRET = process.env.JWT_SECRET;
 
-router.post("/register", async (req, res) => {
-    const { first_name, last_name, email, age, password } = req.body;
-
-    const hashedPassword = bcrypt.hashSync(password, 10);
-
-    const user = new User({
-    first_name,
-    last_name,
-    email,
-    age,
-    password: hashedPassword
-    });
-
-    await user.save();
-    res.status(201).json({ message: "Usuario registrado con éxito" });
-});
-
-router.post("/login", async (req, res) => {
-    const { email, password } = req.body;
-
-    const user = await User.findOne({ email });
-    if (!user || !bcrypt.compareSync(password, user.password)) {
-    return res.status(401).json({ error: "Credenciales inválidas" });
-    }
-
-    const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "1h" });
-
-    res.json({ token, user: { email: user.email, role: user.role } });
-});
-
-////////////
-/*
-router.get("/:userId", authToken,
-async (req, res) =>{
-    const userId = req.params.userId;
-    try {
-        const user = await userModel.findById(userId);
-        if (!user) {
-            res.status(202).json({message: "User not found with ID: " + userId});
-        }
-        res.json(user);
-    } catch (error) {
-        console.error("Error consultando el usuario con ID: " + userId);
-    }
-});
-/*/
+router.post("/register", registerUser);
+router.post("/login", loginUser);
 
 export default router;
 

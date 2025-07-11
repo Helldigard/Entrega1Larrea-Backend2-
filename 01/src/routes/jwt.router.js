@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import User from '../models/User.js';
+import User from '../services/db/daos/models/User.js';
 import {isValidPassword} from '../utils.js';
 import passport from 'passport';
 import { generateJWToken } from '../utils.js';
@@ -19,19 +19,7 @@ router.get('/current', passport.authenticate('jwt', { session: false }), (req, r
     });
 });
 
-/////////////////////
-router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
-    res.json({
-    user: {
-        id: req.user._id,
-        email: req.user.email,
-        role: req.user.role,
-        first_name: req.user.first_name,
-        last_name: req.user.last_name
-    }
-    });
-});
-//////////////
+
 router.post("/register", async (req, res) => {
     try {
     const { first_name, last_name, email, age, password } = req.body;

@@ -19,7 +19,7 @@ import usersViewRouter from './routes/users.view.router.js';
 import jwtRouter from './routes/jwt.router.js'
 import usersRouter from './routes/users.router.js';
 import passwordRouter from './routes/password.router.js';
-import User from './models/User.js'
+import User from './services/db/daos/models/User.js'
 import cartsRouter from './routes/carts.router.js';
 
 

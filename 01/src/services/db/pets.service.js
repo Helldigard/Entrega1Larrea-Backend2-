@@ -1,4 +1,4 @@
-import petsModel from './models/pet.model.js';
+import petsModel from './daos/models/pet.model.js';
 
 export default class PetsService {
     constructor(){
